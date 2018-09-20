@@ -1,0 +1,44 @@
+<?php
+/** @var \MageSuite\CmsProductBacklink\Block\Backlink $block */
+$cmsPages = $block->getCmsPages();
+
+if($cmsPages){
+    $configuration = [
+        'type' => 'cms-teaser',
+        'data' => [
+            'ids' => $cmsPages,
+            'limit' => 1000,
+            'tags' => '',
+            'currentScenario' => [
+                'desktopLayout' => [
+                    'name' => '4 in row',
+                    'iconId' => 'dl_4',
+                    'teasersNum' => 4,
+                    'id' => 4
+                ],
+                'mobileLayout' => [
+                    'name' => 'Grid',
+                    'iconId' => 'ml_2-2',
+                    'id' => 'grid'
+                ]
+            ],
+            'componentVisibility' => [
+                'mobile' => 1,
+                'desktop' => 1
+            ]
+        ]
+    ];
+
+    ?>
+    <div class="cs-container__inner cs-container__cc-content-pdp">
+        <div>
+            <div class="cs-headline">
+                <h2 class="cs-headline__title"><?php echo $this->escapeHtml(__('Cms pages')); ?></h2>
+                <p class="cs-headline__subtitle"></p>
+            </div>
+        </div>
+        <div>
+            <?php echo $block->getComponentHtml($configuration); ?>
+        </div>
+    </div>
+<?php } ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="main.content">
+            <container name="product.cmsbacklink.container" htmlTag="section" htmlClass="cs-container cs-container--edge-to-edge" after="product.carousels.container">
+                <container name="product.cmsbacklink.container.inner" htmlTag="section" htmlId="pdp-cmsbacklink" htmlClass="cs-container__inner">
+                    <block class="MageSuite\CmsProductBacklink\Block\Backlink" name="cms_product_backlink_block"
+                           template="MageSuite_CmsProductBacklink::/backlink.phtml" />
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

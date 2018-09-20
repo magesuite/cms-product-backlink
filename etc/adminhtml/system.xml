@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magesuite" translate="label" sortOrder="300">
+            <label>MageSuite</label>
+        </tab>
+        <section id="cms_product_backlink" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Cms Product Backlink</label>
+            <tab>magesuite</tab>
+            <resource>MageSuite_CmsProductBacklink::config_cms_product_backlink</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="is_enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Is Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="update_backlink_on_page_save" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Update Backlink On Save</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Select "Yes", if the "Cms Page Backlink" section on PDP should be refreshed after saving the cms page</comment>
+                </field>
+                <field id="excluded_pages" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Excluded Pages</label>
+                    <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
