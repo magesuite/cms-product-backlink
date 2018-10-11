@@ -60,6 +60,8 @@ class BacklinkAttributeUpdater
         foreach($pagesIdsAssociatedWithProducts as $productId => $pagesIds){
             $this->updateAttribute($productId, $pagesIds, $storeId, $pageId);
         }
+
+        return;
     }
 
     public function removePageFromAttribute($storeId, $pageId)
@@ -68,7 +70,7 @@ class BacklinkAttributeUpdater
 
         foreach($products as $product){
             $cmsPageIds = $this->serializer->unserialize(
-                $product->getCmsPagesIds()
+                $product->setStoreId($storeId)->getCmsPagesIds()
             );
 
             if(!in_array($pageId, $cmsPageIds)){
@@ -77,13 +79,11 @@ class BacklinkAttributeUpdater
 
             if(count($cmsPageIds) > 1){
                 $cmsPageIds = $this->dataHelper->removeSpecificPageIdFromIds($cmsPageIds, $pageId);
-                $cmsPageIds = $this->serializer->serialize($cmsPageIds);
             }else{
-                $cmsPageIds = $this->serializer->serialize([]);
+                $cmsPageIds = [];
             }
 
-            $product->setCmsPagesIds($cmsPageIds);
-            $product->save();
+            $this->saveAttributeValueInProduct($product, $cmsPageIds, $storeId);
         }
     }
 
@@ -92,10 +92,7 @@ class BacklinkAttributeUpdater
         $products = $this->backlinkProductsRepository->getProductsWithAttribute($storeId);
 
         foreach($products as $product){
-            $cmsPageIds = $this->serializer->serialize([]);
-
-            $product->setCmsPagesIds($cmsPageIds);
-            $product->save();
+            $this->saveAttributeValueInProduct($product, [], $storeId);
         }
     }
 
@@ -108,15 +105,24 @@ class BacklinkAttributeUpdater
 
     public function updateAttribute($productId, $pagesIds, $storeId, $pageId)
     {
-        $product = $this->productRepository->getById($productId, false, $storeId);
+        $product = $this->productRepository->getById($productId, false, $storeId, true);
 
-        if($pageId and $product->getCmsPagesIds()){
-            $productCmsPageIds = $this->serializer->unserialize($product->getCmsPagesIds());
+        if($pageId and $product->setStoreId($storeId)->getCmsPagesIds()){
+            $productCmsPageIds = $this->serializer->unserialize($product->setStoreId($storeId)->getCmsPagesIds());
             $pagesIds = array_merge($pagesIds, $productCmsPageIds);
         }
 
-        $product->setCmsPagesIds($this->serializer->serialize($pagesIds));
+        $this->saveAttributeValueInProduct($product, $pagesIds, $storeId);
+    }
 
-        $product->save();
+    protected function saveAttributeValueInProduct($product, $pagesIds, $storeId)
+    {
+        $pagesIds = array_unique($pagesIds);
+        $pagesIds = array_values($pagesIds);
+
+        $product->setCmsPagesIds($this->serializer->serialize($pagesIds));
+        $product->getResource()->saveAttribute($product, 'cms_pages_ids');
+
+        $product->setStoreId($storeId)->save();
     }
 }

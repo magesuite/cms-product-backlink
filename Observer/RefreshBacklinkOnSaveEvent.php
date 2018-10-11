@@ -42,10 +42,6 @@ class RefreshBacklinkOnSaveEvent implements \Magento\Framework\Event\ObserverInt
 
         $page = $observer->getEvent()->getObject();
 
-        if(!$page->getLayoutUpdateXml()){
-            return $this;
-        }
-
         $storeIds = $this->getStoreIds($page->getStoreId());
 
         foreach($storeIds as $storeId){
