@@ -42,8 +42,9 @@ class ProductsAndPagesProvider
     public function getProductsIdsAssociatedWithPages($storeId, $pageId)
     {
         if($pageId){
-            $pages = [$this->pagesRepository->getPageById($pageId)];
-        }else{
+            $page = $this->pagesRepository->getPageById($pageId, $storeId);
+            $pages = $page ? [$page] : null;
+        } else {
             $pages = $this->pagesRepository->getPagesByStoreId($storeId);
         }
 

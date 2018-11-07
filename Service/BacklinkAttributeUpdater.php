@@ -100,6 +100,10 @@ class BacklinkAttributeUpdater
     {
         $productsIdsAssociatedWithPages = $this->productsAndPagesProvider->getProductsIdsAssociatedWithPages($storeId, $pageId);
 
+        if(empty($productsIdsAssociatedWithPages)){
+            return null;
+        }
+
         return $this->dataHelper->mapPagesToProducts($productsIdsAssociatedWithPages);
     }
 

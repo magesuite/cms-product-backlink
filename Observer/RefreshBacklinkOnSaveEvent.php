@@ -41,8 +41,13 @@ class RefreshBacklinkOnSaveEvent implements \Magento\Framework\Event\ObserverInt
         }
 
         $page = $observer->getEvent()->getObject();
+        $excludedPages = $this->configuration->getExcludedPages();
 
-        $storeIds = $this->getStoreIds($page->getStoreId());
+        if($page->isObjectNew() or in_array($page->getIdentifier(), $excludedPages)){
+            return $this;
+        }
+
+        $storeIds = $this->getStoreIds();
 
         foreach($storeIds as $storeId){
             $this->backlinkAttributeUpdater->execute($storeId, $page->getId());
@@ -51,14 +56,12 @@ class RefreshBacklinkOnSaveEvent implements \Magento\Framework\Event\ObserverInt
         return $this;
     }
 
-    private function getStoreIds($storeIds)
+    private function getStoreIds()
     {
-        if(in_array(0, $storeIds)){
-            $stores = $this->storeManager->getStores();
+        $stores = $this->storeManager->getStores();
 
-            $storeIds = array_keys($stores);
-            sort($storeIds);
-        }
+        $storeIds = array_keys($stores);
+        sort($storeIds);
 
         return $storeIds;
     }

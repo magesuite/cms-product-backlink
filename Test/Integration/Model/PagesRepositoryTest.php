@@ -66,8 +66,9 @@ class PagesRepositoryTest extends \PHPUnit\Framework\TestCase
     private function itReturnsSpecificCmsPage()
     {
         $pageId = 102;
+        $storeId = 1;
 
-        $pages = [$this->pagesRepository->getPageById($pageId)];
+        $pages = [$this->pagesRepository->getPageById($pageId, $storeId)];
 
         $this->assertEquals('page_in_default_store', $pages[0]->getIdentifier());
     }

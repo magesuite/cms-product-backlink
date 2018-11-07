@@ -42,8 +42,16 @@ class PagesRepository
         return $collection->getItems();
     }
 
-    public function getPageById($pageId)
+    public function getPageById($pageId, $storeId)
     {
-        return $this->pageRepository->getById($pageId);
+        $page = $this->pageRepository->getById($pageId);
+        $pageStoreIds = $page->getStoreId();
+
+        if(!in_array($storeId, $pageStoreIds) and !in_array(\Magento\Store\Model\Store::DEFAULT_STORE_ID, $pageStoreIds)){
+            return null;
+        }
+
+        return $page;
+
     }
 }
