@@ -53,7 +53,7 @@ class BacklinkAttributeUpdaterTest extends \PHPUnit\Framework\TestCase
         $this->backlinkAttributeUpdater->removeAllPagesFromAttribute($storeId);
 
         $product = $this->productRepository->get($sku);
-        $this->assertEquals('[]', $product->getCmsPagesIds());
+        $this->assertFalse($product->getExistsStoreValueFlag('cms_pages_ids'));
     }
 
     /**
@@ -72,7 +72,7 @@ class BacklinkAttributeUpdaterTest extends \PHPUnit\Framework\TestCase
         $this->backlinkAttributeUpdater->removePageFromAttribute($storeId, $pageId);
 
         $product = $this->productRepository->get($skuWithOnePage);
-        $this->assertEquals('[]', $product->getCmsPagesIds());
+        $this->assertFalse($product->getExistsStoreValueFlag('cms_pages_ids'));
 
         $product = $this->productRepository->get($skuWithTwoPages);
         $this->assertEquals('[101]', $product->getCmsPagesIds());

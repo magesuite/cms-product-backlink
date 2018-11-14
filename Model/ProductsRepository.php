@@ -31,7 +31,8 @@ class ProductsRepository
         $collection
             ->addStoreFilter($storeId)
             ->addAttributeToSelect(self::CMS_PRODUCT_BACKLINK_ATTRIBUTE_CODE, 'left')
-            ->addFieldToFilter(self::CMS_PRODUCT_BACKLINK_ATTRIBUTE_CODE, ['notnull' => true]);
+            ->addFieldToFilter(self::CMS_PRODUCT_BACKLINK_ATTRIBUTE_CODE, ['notnull' => true])
+            ->addUrlRewrite();
 
         return $collection->getItems();
     }

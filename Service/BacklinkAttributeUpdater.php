@@ -83,7 +83,7 @@ class BacklinkAttributeUpdater
                 $cmsPageIds = [];
             }
 
-            $this->saveAttributeValueInProduct($product, $cmsPageIds, $storeId);
+            $this->saveAttributeValueInProduct($product, $cmsPageIds);
         }
     }
 
@@ -92,7 +92,8 @@ class BacklinkAttributeUpdater
         $products = $this->backlinkProductsRepository->getProductsWithAttribute($storeId);
 
         foreach($products as $product){
-            $this->saveAttributeValueInProduct($product, [], $storeId);
+            $product->setStoreId($storeId);
+            $this->saveAttributeValueInProduct($product, []);
         }
     }
 
@@ -116,17 +117,23 @@ class BacklinkAttributeUpdater
             $pagesIds = array_merge($pagesIds, $productCmsPageIds);
         }
 
-        $this->saveAttributeValueInProduct($product, $pagesIds, $storeId);
+        $this->saveAttributeValueInProduct($product, $pagesIds);
     }
 
-    protected function saveAttributeValueInProduct($product, $pagesIds, $storeId)
+    protected function saveAttributeValueInProduct($product, $pagesIds)
     {
+        if(empty($pagesIds)){
+            $product->setCmsPagesIds(null);
+            $product->getResource()->saveAttribute($product, 'cms_pages_ids');
+
+            return;
+        }
+
         $pagesIds = array_unique($pagesIds);
         $pagesIds = array_values($pagesIds);
+        $pagesIds = $this->serializer->serialize($pagesIds);
 
-        $product->setCmsPagesIds($this->serializer->serialize($pagesIds));
+        $product->setCmsPagesIds($pagesIds);
         $product->getResource()->saveAttribute($product, 'cms_pages_ids');
-
-        $product->setStoreId($storeId)->save();
     }
 }

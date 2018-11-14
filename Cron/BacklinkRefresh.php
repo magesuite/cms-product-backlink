@@ -43,6 +43,7 @@ class BacklinkRefresh
         sort($storeIds);
 
         foreach($storeIds as $storeId){
+            $this->storeManager->setCurrentStore($storeId);
             $this->backlinkAttributeUpdater->execute($storeId);
         }
 

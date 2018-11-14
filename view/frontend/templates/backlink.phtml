@@ -1,8 +1,9 @@
 <?php
 /** @var \MageSuite\CmsProductBacklink\Block\Backlink $block */
 $cmsPages = $block->getCmsPages();
+$componentHtml = '';
 
-if($cmsPages){
+if($cmsPages) {
     $configuration = [
         'type' => 'cms-teaser',
         'data' => [
@@ -29,7 +30,10 @@ if($cmsPages){
         ]
     ];
 
-    ?>
+    $componentHtml = $block->getComponentHtml($configuration);
+}
+
+if($componentHtml){ ?>
     <div class="cs-container__inner cs-container__cc-content-pdp">
         <div>
             <div class="cs-headline">
@@ -38,7 +42,7 @@ if($cmsPages){
             </div>
         </div>
         <div>
-            <?php echo $block->getComponentHtml($configuration); ?>
+            <?php echo $componentHtml; ?>
         </div>
     </div>
 <?php } ?>
