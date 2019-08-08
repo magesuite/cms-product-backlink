@@ -1,15 +1,39 @@
 <?xml version="1.0"?>
 
-<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page layout="1column" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="main.content">
-            <container name="product.cmsbacklink.container" htmlTag="section" htmlClass="cs-container cs-container--edge-to-edge" after="product.carousels.container">
-                <container name="product.cmsbacklink.container.inner" htmlTag="section" htmlId="pdp-cmsbacklink" htmlClass="cs-container__inner">
-                    <block class="MageSuite\CmsProductBacklink\Block\Backlink" name="cms_product_backlink_block"
-                           template="MageSuite_CmsProductBacklink::/backlink.phtml" />
-                </container>
-            </container>
+            <block class="MageSuite\CmsProductBacklink\Block\Backlink" name="cms_product_backlink_block" template="MageSuite_CmsProductBacklink::/backlink.phtml" after="-">
+                <arguments>
+                    <argument xsi:type="array" name="data">
+                        <item name="currentScenario" xsi:type="array">
+                            <item name="desktopLayout" xsi:type="array">
+                                <item name="id" xsi:type="string">2</item>
+                            </item>
+                            <item name="mobileLayout" xsi:type="array">
+                                <item name="id" xsi:type="string">mobile-slider</item>
+                            </item>
+                        </item>
+                        <item name="content_align" xsi:type="array">
+                            <item name="x" xsi:type="number">2</item>
+                            <item name="y" xsi:type="number">2</item>
+                        </item>
+                        <item name="scenario" xsi:type="array">
+                            <item name="teaserWidth" xsi:type="array">
+                                <item name="id" xsi:type="string">container</item>
+                            </item>
+                            <item name="contentPlacement" xsi:type="array">
+                                <item name="id" xsi:type="string">over</item>
+                            </item>
+                        </item>
+                        <item name="componentVisibility" xsi:type="array">
+                            <item name="mobile" xsi:type="string">1</item>
+                            <item name="desktop" xsi:type="string">1</item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>

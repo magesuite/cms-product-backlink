@@ -1,48 +1,40 @@
 <?php
 /** @var \MageSuite\CmsProductBacklink\Block\Backlink $block */
 $cmsPages = $block->getCmsPages();
+$configuration = $block->getData();
+$title = $configuration['title'] ?? __('CMS Pages');
+$subtitle = $configuration['subtitle'] ?? null;
 $componentHtml = '';
 
-if($cmsPages) {
+if ($cmsPages) {
     $configuration = [
         'type' => 'cms-teaser',
-        'data' => [
-            'ids' => $cmsPages,
-            'limit' => 1000,
-            'tags' => '',
-            'currentScenario' => [
-                'desktopLayout' => [
-                    'name' => '4 in row',
-                    'iconId' => 'dl_4',
-                    'teasersNum' => 4,
-                    'id' => 4
-                ],
-                'mobileLayout' => [
-                    'name' => 'Grid',
-                    'iconId' => 'ml_2-2',
-                    'id' => 'grid'
-                ]
+        'data' => array_merge(
+            [
+                'ids' => $cmsPages,
+                'limit' => 1000,
+                'tags' => '',
+                'mix' => ' cs-image-teaser--backlink'
             ],
-            'componentVisibility' => [
-                'mobile' => 1,
-                'desktop' => 1
-            ]
-        ]
+            $configuration['data'] ?? []
+        )
     ];
-
     $componentHtml = $block->getComponentHtml($configuration);
 }
 
-if($componentHtml){ ?>
-    <div class="cs-container__inner cs-container__cc-content-pdp">
-        <div>
-            <div class="cs-headline">
-                <h2 class="cs-headline__title"><?php echo $this->escapeHtml(__('Cms pages')); ?></h2>
-                <p class="cs-headline__subtitle"></p>
-            </div>
-        </div>
-        <div>
-            <?php echo $componentHtml; ?>
-        </div>
-    </div>
+if ($componentHtml) { ?>
+    <?= $block->getLayout()->createBlock(
+        '\Creativestyle\ContentConstructorFrontendExtension\Block\Component', 'pdp-cms-backlink-headline', [
+            'data' => [
+                'section' => 'content',
+                'type' => 'headline',
+                'data' => [
+                    'title' => $title,
+                    'subtitle' => $subtitle,
+                    'mix' => ' cs-headline--backlink',
+                ]
+            ],
+        ]
+    )->toHtml(); ?>
+    <?= $componentHtml; ?>
 <?php } ?>
