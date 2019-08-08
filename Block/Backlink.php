@@ -59,7 +59,7 @@ class Backlink extends \Magento\Framework\View\Element\Template
 
     private function prepareCmsPagesIds($cmsPagesIds)
     {
-        if(!$cmsPagesIds){
+        if (!$cmsPagesIds){
             return null;
         }
 
