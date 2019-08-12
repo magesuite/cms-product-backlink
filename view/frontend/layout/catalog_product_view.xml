@@ -3,9 +3,13 @@
 <page layout="1column" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="main.content">
-            <block class="MageSuite\CmsProductBacklink\Block\Backlink" name="cms_product_backlink_block" template="MageSuite_CmsProductBacklink::/backlink.phtml" after="-">
+        <referenceBlock name="product.info.details">
+            <block class="MageSuite\CmsProductBacklink\Block\Backlink" name="cms_product_backlink_block" template="MageSuite_CmsProductBacklink::/backlink.phtml" group="detailed_info" after="-">
                 <arguments>
+                    <argument name="sort_order" xsi:type="string">120</argument>
+                    <argument name="contain_content" xsi:type="boolean">false</argument>
+                    <argument name="include_headline" xsi:type="boolean">false</argument>
+                    <argument name="is_collapsible" xsi:type="boolean">false</argument>
                     <argument xsi:type="array" name="data">
                         <item name="currentScenario" xsi:type="array">
                             <item name="desktopLayout" xsi:type="array">
@@ -34,6 +38,6 @@
                     </argument>
                 </arguments>
             </block>
-        </referenceContainer>
+        </referenceBlock>
     </body>
 </page>
