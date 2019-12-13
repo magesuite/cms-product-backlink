@@ -2,8 +2,6 @@
 /** @var \MageSuite\CmsProductBacklink\Block\Backlink $block */
 $cmsPages = $block->getCmsPages();
 $configuration = $block->getData();
-$title = $configuration['title'] ?? __('CMS Pages');
-$subtitle = $configuration['subtitle'] ?? null;
 $componentHtml = '';
 
 if ($cmsPages) {
@@ -22,19 +20,6 @@ if ($cmsPages) {
     $componentHtml = $block->getComponentHtml($configuration);
 }
 
-if ($componentHtml) { ?>
-    <?= $block->getLayout()->createBlock(
-        '\Creativestyle\ContentConstructorFrontendExtension\Block\Component', 'pdp-cms-backlink-headline', [
-            'data' => [
-                'section' => 'content',
-                'type' => 'headline',
-                'data' => [
-                    'title' => $title,
-                    'subtitle' => $subtitle,
-                    'mix' => ' cs-headline--backlink',
-                ]
-            ],
-        ]
-    )->toHtml(); ?>
-    <?= $componentHtml; ?>
-<?php } ?>
+if ($componentHtml) {
+    echo $componentHtml;
+} ?>
