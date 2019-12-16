@@ -7,6 +7,7 @@
             <block class="MageSuite\CmsProductBacklink\Block\Backlink" name="cms_product_backlink_block" template="MageSuite_CmsProductBacklink::/backlink.phtml" group="detailed_info" after="-">
                 <arguments>
                     <argument name="sort_order" xsi:type="string">120</argument>
+                    <argument name="title" xsi:type="string" translate="true">CMS Pages</argument>
                     <argument name="contain_content" xsi:type="boolean">false</argument>
                     <argument name="include_headline" xsi:type="boolean">false</argument>
                     <argument name="is_collapsible" xsi:type="boolean">false</argument>
