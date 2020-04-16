@@ -57,7 +57,7 @@ class ProductsAndPagesProvider
         $productsIdsAssociatedWithPages = [];
 
         foreach($pages as $page){
-            $components = $this->cmsPageRenderer->getComponentsFromXml($page->getLayoutUpdateXml());
+            $components = json_decode($page->getContentConstructorContent(), true);
 
             if(empty($components)){
                 continue;
