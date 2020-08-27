@@ -24,7 +24,7 @@ class BacklinkTest extends \PHPUnit\Framework\TestCase
      */
     private $productRepository;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
 
