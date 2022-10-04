@@ -57,6 +57,10 @@ class ProductsAndPagesProvider
         $productsIdsAssociatedWithPages = [];
 
         foreach($pages as $page){
+            if($page->getContentConstructorContent() === null) {
+                continue;
+            }
+
             $components = json_decode($page->getContentConstructorContent(), true);
 
             if(empty($components)){
