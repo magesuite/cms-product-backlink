@@ -79,29 +79,27 @@ class ProductsAndPagesProvider
         return $productsIdsAssociatedWithPages;
     }
 
-    protected function getProductIdsFromComponents($components)
+    public function getProductIdsFromComponents($components)
     {
         $productIds = [];
 
         foreach($components as $component){
-            if(!$this->isComponentWithProducts($component['type'])){
+            if (!$this->isComponentWithProducts($component['type'])) {
                 continue;
             }
 
             $componentBlock = $this->cmsPageRenderer->getComponentBlock($component);
-
             //We need to render component to get product identities
             $componentBlock->toHtml();
-
             $identities = $componentBlock->getIdentities();
 
-            if(empty($identities)){
+            if (empty($identities)) {
                 continue;
             }
 
             $ids = $this->dataHelper->getProductIdsFromIdentities($identities);
 
-            if(empty($ids)){
+            if (empty($ids)) {
                 continue;
             }
 
@@ -113,10 +111,6 @@ class ProductsAndPagesProvider
 
     private function isComponentWithProducts($componentType)
     {
-        if(in_array($componentType, $this->componentsWithProducts)){
-            return true;
-        }
-
-        return false;
+        return in_array($componentType, $this->componentsWithProducts);
     }
 }
