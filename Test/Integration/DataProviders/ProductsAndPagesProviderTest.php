@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace MageSuite\MagePalGoogleTagManagerAdcell\Test\Integration\Model\DataLayer;
+namespace MageSuite\CmsProductBacklink\Test\Integration\DataProviders;
 
 class ProductsAndPagesProviderTest extends \PHPUnit\Framework\TestCase
 {
