@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\CmsProductBacklink\Test\Unit\Helper;
 
 class DataTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var \MageSuite\CmsProductBacklink\Helper\Data
-     */
-    private $dataHelper;
+    protected ?\MageSuite\CmsProductBacklink\Helper\Data $dataHelper;
 
     protected function setUp(): void
     {
@@ -17,41 +16,36 @@ class DataTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param array $cmsPageIds
-     * @param int $pageId
-     * @param array $expected
      * @dataProvider idsDataProvider
      */
-    public function testItRemovesSpecificPageIdFromIds($cmsPageIds, $pageId, $expected)
+    public function testItRemovesSpecificPageIdFromIds(array $cmsPageIds, int $pageId, array $expected): void
     {
         $ids = $this->dataHelper->removeSpecificPageIdFromIds($cmsPageIds, $pageId);
 
         $this->assertEquals($expected, $ids);
     }
 
-    public function idsDataProvider()
+    public static function idsDataProvider(): array
     {
         return [
-            [[1,2,3], 2, [1,3]],
-            [[1,2,3], 4, [1,2,3]],
+            [[1, 2, 3], 2, [1, 3]],
+            [[1, 2, 3], 4, [1, 2, 3]],
             [[1], 1, []],
             [[], 2, []]
         ];
     }
 
     /**
-     * @param array $productsIdsAssociatedWithPages
-     * @param array $expected
      * @dataProvider productsAndPagesDataProvider
      */
-    public function testItMapsPagesToProductsCorrectly($productsIdsAssociatedWithPages, $expected)
+    public function testItMapsPagesToProductsCorrectly(array $productsIdsAssociatedWithPages, array $expected): void
     {
         $result = $this->dataHelper->mapPagesToProducts($productsIdsAssociatedWithPages);
 
         $this->assertEquals($expected, $result);
     }
 
-    public function productsAndPagesDataProvider()
+    public static function productsAndPagesDataProvider(): array
     {
         return [
             [
@@ -64,24 +58,22 @@ class DataTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 [1 => [100], 2 => [100]],
-                [100 => [1,2]]
+                [100 => [1, 2]]
             ]
         ];
     }
 
     /**
-     * @param array $identities
-     * @param array $expected
      * @dataProvider identitiesDataProvider
      */
-    public function testItReturnsCorrectIdsFromIdenties($identities, $expected)
+    public function testItReturnsCorrectIdsFromIdenties(array $identities, array $expected): void
     {
         $result = $this->dataHelper->getProductIdsFromIdentities($identities);
 
         $this->assertEquals($expected, $result);
     }
 
-    public function identitiesDataProvider()
+    public static function identitiesDataProvider(): array
     {
         return [
             [
@@ -94,7 +86,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 ['cat_p_1', 'cat_p_2', 'cat_p_2014', 'test'],
-                [1,2,2014]
+                [1, 2, 2014]
             ]
         ];
     }
