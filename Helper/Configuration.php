@@ -26,14 +26,14 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $config = $this->getConfig();
 
-        return (boolean) $config['is_enabled'];
+        return (bool) $config['is_enabled'];
     }
 
     public function isUpdateOnSaveEventEnabled()
     {
         $config = $this->getConfig();
 
-        return (boolean) $config['update_backlink_on_page_save'];
+        return (bool) $config['update_backlink_on_page_save'];
     }
 
     public function getExcludedPages()
