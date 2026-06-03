@@ -68,7 +68,7 @@ class BacklinkRefresh extends \Symfony\Component\Console\Command\Command
 
         $backlinkAttributeUpdater = $this->backlinkAttributeUpdaterFactory->create();
 
-        foreach($storeIds as $storeId){
+        foreach ($storeIds as $storeId) {
             $backlinkAttributeUpdater->execute($storeId);
         }
 
