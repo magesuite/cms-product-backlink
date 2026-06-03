@@ -52,8 +52,7 @@ class BacklinkRefresh extends \Symfony\Component\Console\Command\Command
     protected function execute(
         \Symfony\Component\Console\Input\InputInterface $input,
         \Symfony\Component\Console\Output\OutputInterface $output
-    )
-    {
+    ): int {
         if ($this->scope->getCurrentScope() !== 'frontend') {
             $this->state->setAreaCode('frontend');
         }
@@ -69,8 +68,10 @@ class BacklinkRefresh extends \Symfony\Component\Console\Command\Command
 
         $backlinkAttributeUpdater = $this->backlinkAttributeUpdaterFactory->create();
 
-        foreach($storeIds as $storeId){
+        foreach ($storeIds as $storeId) {
             $backlinkAttributeUpdater->execute($storeId);
         }
+
+        return \Magento\Framework\Console\Cli::RETURN_SUCCESS;
     }
 }
