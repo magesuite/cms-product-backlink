@@ -89,8 +89,7 @@ class ProductsAndPagesProvider
             }
 
             $componentBlock = $this->cmsPageRenderer->getComponentBlock($component);
-            //We need to render component to get product identities
-            $componentBlock->toHtml();
+            $componentBlock->getComponent();
             $identities = $componentBlock->getIdentities();
 
             if (empty($identities)) {
