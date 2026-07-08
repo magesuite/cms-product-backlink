@@ -15,9 +15,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
         $this->dataHelper = $objectManager->getObject(\MageSuite\CmsProductBacklink\Helper\Data::class);
     }
 
-    /**
-     * @dataProvider idsDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('idsDataProvider')]
     public function testItRemovesSpecificPageIdFromIds(array $cmsPageIds, int $pageId, array $expected): void
     {
         $ids = $this->dataHelper->removeSpecificPageIdFromIds($cmsPageIds, $pageId);
@@ -35,9 +33,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider productsAndPagesDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('productsAndPagesDataProvider')]
     public function testItMapsPagesToProductsCorrectly(array $productsIdsAssociatedWithPages, array $expected): void
     {
         $result = $this->dataHelper->mapPagesToProducts($productsIdsAssociatedWithPages);
@@ -63,9 +59,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @dataProvider identitiesDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('identitiesDataProvider')]
     public function testItReturnsCorrectIdsFromIdenties(array $identities, array $expected): void
     {
         $result = $this->dataHelper->getProductIdsFromIdentities($identities);
